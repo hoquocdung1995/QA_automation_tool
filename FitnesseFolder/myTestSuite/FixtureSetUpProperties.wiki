@@ -1,0 +1,15 @@
+---
+Test
+---
+<test page>
+
+!define TEST_SYSTEM {slim}
+
+!path D:\QA_automation_tool-master\demo.jar
+|import         |
+|com.csc.fixture|
+
+|script      |set up properties                            |
+|set property|!-SinglePage.properties-!||locator1||name=>email_150|
+
+

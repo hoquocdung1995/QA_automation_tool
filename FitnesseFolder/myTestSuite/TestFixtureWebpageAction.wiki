@@ -1,0 +1,29 @@
+<test page>
+
+!define TEST_SYSTEM {slim}
+
+!path D:\QA_automation_tool-master\demo.jar
+|import         |
+|com.csc.fixture|
+
+|script                                        |interact web application                           |
+|i navigate to page                            |url                                                |
+|i click the element                           |locator                                            |
+|i should see the popup                        |windowID     |appears                              |
+|i open the popup window                       |url          |with                   |windowID     |
+|i close the browser                                                                               |
+|i double click the element                    |locator                                            |
+|i drag the element                            |locator1     |and drop to the element|locator2     |
+|i move the focus to the element               |locator                                            |
+|i press the left mouse button on the element  |locator                                            |
+|i release the left mouse button on the element|locator                                            |
+|i pause                                       |waitTime                                           |
+|i refresh                                                                                         |
+|i select the option                           |optionLocator|from a drop-down       |selectLocator|
+|i select the window                           |windowID                                           |
+|i set the input                               |locator      |with value             |value        |
+|i execute javascript                          |script       |on element             |locator      |
+|i wait for a new page to load                 |timeout                                            |
+|i give focus to the currently selected window                                                     |
+|i resize currently selected window to take up the entire screen                                   |
+

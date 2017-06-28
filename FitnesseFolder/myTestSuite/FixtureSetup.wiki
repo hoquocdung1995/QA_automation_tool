@@ -1,0 +1,19 @@
+---
+Test
+---
+<test page>
+
+!define TEST_SYSTEM {slim}
+
+!path D:\QA_automation_tool-master\demo.jar
+|import         |
+|com.csc.fixture|
+
+|script                |set up configuration     |
+|set file config       |!-SinglePage.properties-!|
+|set browser           |!-FireFox-!              |
+|set driver            |1                        |
+|set test slave machine|urlsample                |
+|set url               |!-https://www.google.com.vn-!|
+
+
