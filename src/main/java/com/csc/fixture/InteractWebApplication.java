@@ -2,6 +2,7 @@ package com.csc.fixture;
 
 import org.apache.log4j.Logger;
 
+
 public class InteractWebApplication {
 	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
 	public InteractWebApplication() {
