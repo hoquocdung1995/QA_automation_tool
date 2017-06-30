@@ -11,7 +11,6 @@ public class Properties {
 			String data = "";
 
 			File file = new File(path);
-
 			if (!file.exists()) {
 				file.createNewFile();
 			} else {
@@ -28,5 +27,5 @@ public class Properties {
 
 		}
 	}
-
+	
 }
