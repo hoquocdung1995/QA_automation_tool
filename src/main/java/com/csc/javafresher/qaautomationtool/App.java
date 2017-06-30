@@ -10,6 +10,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.csc.fixture.InteractWebApplication;
 
+import com.csc.storage.MyLog;
+
 /**
  * Hello world!
  *
@@ -25,6 +27,7 @@ public class App
         app.iSetTheInputWithValue("userName", "Tuyendt");
         app.iSetTheInputWithValue("email", "tuyendt@gmail.com");
         app.iSetTheInputWithValue("password", "tuyendt123");
+//        MyLog.info("ejfweklfjwelkjl");
     }
 	
 	 

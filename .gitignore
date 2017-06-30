@@ -1,2 +1,4 @@
 /target/classes/com/csc/javafresher/qaautomationtool/*.class
 /target
+/.metadata
+/.settings

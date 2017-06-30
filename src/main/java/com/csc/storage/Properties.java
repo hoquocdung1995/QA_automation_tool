@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Properties {
-	public static void setProperty(String fileName, String locator, String property) {
+	public static void setProperty(String fileName, String value, String property) {
 		try {
 			String path = "FitNesseRoot/bin/" + fileName;
 			String data = "";
@@ -16,7 +16,7 @@ public class Properties {
 			} else {
 				data = "\r\n";
 			}
-			data = data + locator + "=" + property;
+			data = data + value + "=" + property;
 
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
