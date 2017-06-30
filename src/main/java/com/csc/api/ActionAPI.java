@@ -1,26 +1,22 @@
 package com.csc.api;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import com.csc.driverpool.Driver;
-import com.csc.driverpool.DriverPool;
 
-import java.io.File;
 
 public class ActionAPI {
-//	static{
-//		File file = new File("D://QA_automation_tool//chromedriver.exe");
-//		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-//	}
-	
-	//ChromeDriver driver = Driver.getDriver();
+
+	private Select select;
 	
 	WebDriver driver = Driver.getDriver();
-//	WebDriver driver = dr.open();
-//	FirefoxDriver driver = (FirefoxDriver) Driver.open();
+	Actions actions = new Actions(driver);
+
 	
 	public void toNavigate(String url){
 		System.out.println("I navigate");
@@ -57,32 +53,80 @@ public class ActionAPI {
 	}
 	
 	public void toCloseBrowser(){
-		
+		driver.close();
 	}
 	public void toDoubleClick(String type,String value){
-		
+		if ("id".equals(type)) 
+			actions.doubleClick(driver.findElement(By.id(value))).perform();
+		else if ("name".equals(type))
+			actions.doubleClick(driver.findElement(By.name(value))).perform();
+		else if ("xpath".equals(type))
+			actions.doubleClick(driver.findElement(By.xpath(value))).perform();;
 	}
-	public void toSelectDropdownList(String type,String value,String type2,String value2){
-		
+	public void toSelectDropdownList(String type,String value,String input){
+		if (type.equalsIgnoreCase("id")) {
+			select = new Select(driver.findElement(By.id(value)));
+			select.selectByVisibleText(input);
+		} else if (type.equalsIgnoreCase("name")) {
+			select = new Select(driver.findElement(By.name(value)));
+			select.selectByVisibleText(input);
+		} else if (type.equalsIgnoreCase("xpath")) {
+			select = new Select(driver.findElement(By.xpath(value)));
+			select.selectByVisibleText(input);
+		}		
 	}
 	public void toSelectOption(String type,String value,String input){
 		
 	}
 	public void toExcuteJavascript(String type,String value,String script){
-		
+		if (driver instanceof JavascriptExecutor) {
+			((JavascriptExecutor) driver).executeScript(script);
+		}
 	}
 	public void toDragAndDrop(String type1,String value1,String type2,String value2){
-		
+		if ("id".equals(type1)) {
+			if ("id".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.id(value1)), driver.findElement(By.id(value2))).perform();
+			} else if ("name".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.id(value1)), driver.findElement(By.name(value2))).perform();
+			} else if ("xpath".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.id(value1)), driver.findElement(By.xpath(value2))).perform();
+			}
+
+		} else if ("name".equals(type1)) {
+			if ("id".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.id(value2))).perform();
+			} else if ("name".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.name(value2))).perform();
+			} else if ("xpath".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.xpath(value2))).perform();
+			}
+		}
+
+		else if ("xpath".equals(type1))
+			if ("id".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.id(value2))).perform();
+			} else if ("name".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.name(value2))).perform();
+			} else if ("xpath".equals(type2)) {
+				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.xpath(value2))).perform();
+			}
 	}
+	
 	public void toRefresh(){
-		
+		driver.navigate().refresh();
 	}
 	public String toGetElementText(String type,String value){
 		
 		return "";
 	}
 	public void toPause(String waitTime){
-		
+		try{
+			int time = Integer.valueOf(waitTime);
+			Thread.sleep((time));
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	public void toWaitforProperty(String timeOut){
 				
@@ -93,9 +137,19 @@ public class ActionAPI {
 	public void toReleaseMouse(String type,String value){
 		
 	}
+	
 	public void toResizeWindown(){
-		
+		Dimension dimension = new Dimension(800, 600);
+		driver.manage().window().setSize(dimension);
 	}
+	
+	public void toMaximizeWindow(){
+		driver.manage().window().maximize();
+	}
+	public void toMinimizeWindow(){
+		driver.manage().window().setPosition(new Point(-2000, 0));
+	}
+	
 	public void toSwitchToWindow(String windowId){
 		
 	}
