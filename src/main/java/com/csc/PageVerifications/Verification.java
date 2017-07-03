@@ -1,4 +1,4 @@
-package com.csc.PaseVerifications;
+package com.csc.PageVerifications;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
