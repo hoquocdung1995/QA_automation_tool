@@ -1,18 +1,24 @@
 package com.csc.api;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
-
 
 public class ActionAPI {
 
@@ -20,22 +26,23 @@ public class ActionAPI {
 	
 	static WebDriver driver = DriverPool.getDriverPool();
 	Actions actions = new Actions(driver);
+	private WebElement element;
+	private static File filechrome = new File("C:/Users/training/Downloads/chromedriver/chromedriver.exe");
 
-	
-	public  static String verifyElementText(String locator) {
+	public static String verifyElementText(String locator) {
 		PageAction action = new PageAction();
 		List<String> loca = action.readLocator(locator);
 		String type = loca.get(0);
 		String elementText = "";
-		try{
+		try {
 			if (type.equals("xpath")) {
 				elementText = driver.findElement(By.xpath(loca.get(1))).getText();
 			} else if (type.equals("id")) {
 				elementText = driver.findElement(By.id(loca.get(1))).getText();
 			} else if (type.equals("name")) {
 				elementText = driver.findElement(By.name(loca.get(1))).getText();
-			}			
-		}catch(Exception e){
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			elementText = "Not found";
 		}
@@ -43,53 +50,55 @@ public class ActionAPI {
 		return elementText;
 
 	}
-	
-	public void toNavigate(String url){
+	//navigate
+	public void toNavigate(String url) {
 		System.out.println("I navigate");
 		driver.navigate().to(url);
 		driver.manage().window().maximize();
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
 	}
-	
-	public void toClick(String type,String value) throws InterruptedException{
+	//Click element
+	public void toClick(String type, String value) throws InterruptedException {
 		System.out.println("I click");
 		System.out.println(type);
 		System.out.println(value);
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
-		if("id".equals(type))
+		if ("id".equals(type))
 			driver.findElement(By.id(value)).click();
-		else if("name".equals(type))
+		else if ("name".equals(type))
 			driver.findElement(By.name(value)).click();
-		else if("xpath".equals(type))
+		else if ("xpath".equals(type))
 			Thread.sleep(2000);
-			driver.findElement(By.xpath((value))).click();
+		driver.findElement(By.xpath((value))).click();
 	}
-	
-
-	public void toSetInput(String type,String value,String input){
+	//set Input for element
+	public void toSetInput(String type, String value, String input) {
 		System.out.println("I set input");
-		if("id".equals(type))
+		if ("id".equals(type))
 			driver.findElement(By.id(value)).sendKeys(input);
-		else if("name".equals(type))
+		else if ("name".equals(type))
 			driver.findElement(By.name(value)).sendKeys(input);
-		else if("xpath".equals(type))
+		else if ("xpath".equals(type))
 			driver.findElement(By.xpath((value))).sendKeys(input);
 	}
-	
-	public void toCloseBrowser(){
+   //close browser
+	public void toCloseBrowser() {
 		driver.close();
 	}
-	public void toDoubleClick(String type,String value){
-		if ("id".equals(type)) 
+	//Double click element
+	public void toDoubleClick(String type, String value) {
+		if ("id".equals(type))
 			actions.doubleClick(driver.findElement(By.id(value))).perform();
 		else if ("name".equals(type))
 			actions.doubleClick(driver.findElement(By.name(value))).perform();
 		else if ("xpath".equals(type))
-			actions.doubleClick(driver.findElement(By.xpath(value))).perform();;
+			actions.doubleClick(driver.findElement(By.xpath(value))).perform();
+		;
 	}
-	public void toSelectDropdownList(String type,String value,String input){
+	//Select Option from drop down list
+	public void toSelectDropdownList(String type, String value, String input) {
 		if (type.equalsIgnoreCase("id")) {
 			select = new Select(driver.findElement(By.id(value)));
 			select.selectByVisibleText(input);
@@ -99,17 +108,37 @@ public class ActionAPI {
 		} else if (type.equalsIgnoreCase("xpath")) {
 			select = new Select(driver.findElement(By.xpath(value)));
 			select.selectByVisibleText(input);
-		}		
-	}
-	public void toSelectOption(String type,String value,String input){
-		
-	}
-	public void toExcuteJavascript(String type,String value,String script){
-		if (driver instanceof JavascriptExecutor) {
-			((JavascriptExecutor) driver).executeScript(script);
 		}
 	}
-	public void toDragAndDrop(String type1,String value1,String type2,String value2){
+	// Select_Option//Use_only_NameAttribute
+	public void toSelectOption(String value, String input) {
+		List<WebElement> e = driver.findElements(By.name(value));
+		for (int i = 0; i < e.size(); i++) {
+			if ((e.get(i).getAttribute("value").equals(input))) {
+				e.get(i).click();
+			}
+		}
+	}
+	//Excute Javascript
+	public void toExcuteJavascript(String type, String value, String script) {
+
+		try {
+			if (type.toLowerCase().equals("id") && driver instanceof JavascriptExecutor) {
+				driver.findElement(By.id(value));
+				((JavascriptExecutor) driver).executeScript(script);
+			} else if (type.toLowerCase().equals("name") && driver instanceof JavascriptExecutor) {
+				driver.findElement(By.name(value));
+				((JavascriptExecutor) driver).executeScript(script);
+			} else if (type.toLowerCase().equals("xpath") && driver instanceof JavascriptExecutor) {
+				driver.findElement(By.xpath(value));
+				((JavascriptExecutor) driver).executeScript(script);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	// Drag and drop
+	public void toDragAndDrop(String type1, String value1, String type2, String value2) {
 		if ("id".equals(type1)) {
 			if ("id".equals(type2)) {
 				actions.dragAndDrop(driver.findElement(By.id(value1)), driver.findElement(By.id(value2))).perform();
@@ -129,69 +158,156 @@ public class ActionAPI {
 			}
 		}
 
-		else if ("xpath".equals(type1))
+		else if ("xpath".equals(type1)) {
 			if ("id".equals(type2)) {
 				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.id(value2))).perform();
 			} else if ("name".equals(type2)) {
-				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.name(value2))).perform();
+				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.name(value2)))
+						.perform();
 			} else if ("xpath".equals(type2)) {
 				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.xpath(value2))).perform();
 			}
+		}
 	}
-	
-	public void toRefresh(){
+	// Refresh page
+	public void toRefresh() {
 		driver.navigate().refresh();
 	}
-	public String toGetElementText(String type,String value){
-		
-		return "";
+	// Get Element text (by element attribute)
+	public String toGetElementText(String type, String value) {
+		if (type.toLowerCase().equals("id")) {
+			element = driver.findElement(By.id(value));
+		} else if (type.toLowerCase().equals("name")) {
+			element = driver.findElement(By.name(value));
+		} else if ((type.toLowerCase().equals("classname")) || (type.toLowerCase().equals("class"))) {
+			element = driver.findElement(By.className(value));
+		} else if ((type.toLowerCase().equals("tagname")) || (type.toLowerCase().equals("tag"))) {
+			element = driver.findElement(By.tagName(value));
+		} else if ((type.toLowerCase().equals("linktext")) || (type.toLowerCase().equals("link"))) {
+			element = driver.findElement(By.linkText(value));
+		} else if (type.toLowerCase().equals("partiallinktext")) {
+			element = driver.findElement(By.partialLinkText(value));
+		} else if ((type.toLowerCase().equals("cssselector")) || (type.toLowerCase().equals("css"))) {
+			element = driver.findElement(By.cssSelector(value));
+		} else if (type.toLowerCase().equals("xpath")) {
+			element = driver.findElement(By.xpath(value));
+		}
+		return element.getAttribute("value");
 	}
-	public void toPause(String waitTime){
-		try{
+
+	public void toPause(String waitTime) {
+		try {
 			int time = Integer.valueOf(waitTime);
 			Thread.sleep((time));
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	public void toWaitforProperty(String timeOut){
-				
+
+	// Wait_For_Property
+	public void toWaitforProperty(String type, String value) {
+		if (type.equalsIgnoreCase("id")) {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(value)));
+		} else if (type.equalsIgnoreCase("name")) {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(value)));
+		} else if (type.equalsIgnoreCase("xpath")) {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(value)));
+		}
 	}
-	public void toPressLeftMouse(String type,String value){
-		
+
+	// Get_Web_Grid
+	public ArrayList<WebElement> toGetWebGrid(String value) {
+		element = driver.findElement(By.xpath(value));
+		ArrayList<WebElement> allCell = null;
+		ArrayList<WebElement> rows = (ArrayList<WebElement>) element.findElements(By.tagName("tr"));
+		for (WebElement row : rows) {
+			allCell = (ArrayList<WebElement>) row.findElements(By.tagName("//td"));
+		}
+		return allCell;
 	}
-	public void toReleaseMouse(String type,String value){
-		
+
+	// Get_Drop_Down_List
+	public List<WebElement> toGetDropDownList(String value) {
+		element = driver.findElement(By.xpath(value));
+		List<WebElement> allValue = (List<WebElement>) element.findElements(By.tagName("option"));
+		return allValue;
 	}
-	
-	public void toResizeWindown(){
+
+	// Prees_Left_Mouse
+	public void toPressLeftMouse(String type, String value) {
+		if ("id".equals(type))
+			actions.clickAndHold(driver.findElement(By.id(value)));
+		else if ("name".equals(type))
+			actions.clickAndHold(driver.findElement(By.name(value)));
+		else if ("xpath".equals(type))
+			actions.clickAndHold(driver.findElement(By.xpath(value)));
+	}
+
+	// Release_Mouse
+	public void toReleaseMouse(String type, String value) {
+		if ("id".equals(type))
+			actions.release(driver.findElement(By.id(value)));
+		else if ("name".equals(type))
+			actions.release(driver.findElement(By.name(value)));
+		else if ("xpath".equals(type))
+			actions.release(driver.findElement(By.xpath(value)));
+	}
+
+	public void toResizeWindown() {
 		Dimension dimension = new Dimension(800, 600);
 		driver.manage().window().setSize(dimension);
 	}
-	
-	public void toMaximizeWindow(){
+
+	public void toMaximizeWindow() {
 		driver.manage().window().maximize();
 	}
-	public void toMinimizeWindow(){
+
+	public void toMinimizeWindow() {
 		driver.manage().window().setPosition(new Point(-2000, 0));
 	}
-	
-	public void toSwitchToWindow(String windowId){
-		
+
+	public void openFirefox() {
+		driver = DriverPool.open();
+		Set<String> allHandles = driver.getWindowHandles();
+		System.out.println("Count of windows:" + allHandles.size());
+		allHandles.remove(allHandles.iterator().next());
+		// get the last Window Handle
+		String lastHandle = allHandles.iterator().next();
+		// switch to second/last window, because we know there are only two
+		// windows 1-parent window 2-other window(ad window)
+		driver.switchTo().window(lastHandle);
 	}
-	public void toShowPopUp(String windownId){
-		
+
+	public void openChrome() {
+		System.setProperty("webdriver.chrome.driver", filechrome.getAbsolutePath());
+		driver = new ChromeDriver();
+		Set<String> allHandles = driver.getWindowHandles();
+		System.out.println("Count of windows:" + allHandles.size());
+		allHandles.remove(allHandles.iterator().next());
+		// get the last Window Handle
+		String lastHandle = allHandles.iterator().next();
+		// switch to second/last window, because we know there are only two
+		// windows 1-parent window 2-other window(ad window)
+		driver.switchTo().window(lastHandle);
 	}
-	public void toOpenPopUpWithUrl(String url,String windowId){
-		
+
+	public void toShowPopUp(String windownId) {
+
+	}
+
+	public void toOpenPopUpWithUrl(String url, String windowId) {
+
 	}
 
 	public void toGiveFocusToCurrentWindow() {
-		
+
 	}
 
 	public void toMoveTheFocusToElement(String string, String string2) {
-		
+
 	}
-	
+
 }

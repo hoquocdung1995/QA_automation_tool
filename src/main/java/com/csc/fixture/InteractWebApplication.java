@@ -78,8 +78,8 @@ public class InteractWebApplication {
 		log.info("iSelectTheOptionFromADropDown: ");
 	}
 	
-	public void iSelectTheWindow(String windowId){
-		action.iSelectTheWindow(windowId);
+	public void iSelectTheWindow(){
+		action.iSelectTheWindow();
 		log.info("iSelectTheWindow: ");
 	}
 	
@@ -88,8 +88,8 @@ public class InteractWebApplication {
 		log.info("iSetTheInputWithValue: ");
 	}
 
-	public void iWaitForANewPageToLoad(String timeOut){
-		action.iWaitForANewPageToLoad(timeOut);
+	public void iWaitForANewPageToLoad(String type, String value){
+		action.iWaitForANewPageToLoad(type, value);
 		
 		log.info("iWaitForANewPageToLoad: ");
 	}
