@@ -2,3 +2,5 @@
 /target
 /.metadata
 /.settings
+/geckodriver.exe
+/chromedriver.exe
