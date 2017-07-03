@@ -108,5 +108,10 @@ public class InteractWebApplication {
 		log.info("iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen: ");
 	}
 	
+	public void iWaitForMs(String time){
+		action.iWaitForMs(time);
+		
+	}
+	
 	
 }

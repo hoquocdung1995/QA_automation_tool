@@ -15,6 +15,11 @@ public class PageAction {
 	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
 	ActionAPI api = new ActionAPI();
 
+	public void iWaitForMs(String time){
+		api.toPause(time);
+		
+	}
+	
 	public ArrayList<String> readLocator(String locator)  {
 		ArrayList<String> list = null;
 		Properties prop = new Properties();
@@ -172,6 +177,8 @@ public class PageAction {
 		api.toResizeWindown();
 		log.info("iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen: ");
 	}
+	
+	
 	
 	
 	
