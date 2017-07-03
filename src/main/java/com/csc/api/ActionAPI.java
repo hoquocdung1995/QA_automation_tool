@@ -7,17 +7,16 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import com.csc.driverpool.Driver;
+import com.csc.driverpool.DriverPool;
 
 
 public class ActionAPI {
 
 	private Select select;
 	
-	WebDriver driver = Driver.getDriver();
+	WebDriver driver = DriverPool.open();
 	Actions actions = new Actions(driver);
 
-	
 	public void toNavigate(String url){
 		System.out.println("I navigate");
 		driver.navigate().to(url);

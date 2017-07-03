@@ -89,6 +89,7 @@ public class InteractWebApplication {
 
 	public void iWaitForANewPageToLoad(String timeOut){
 		action.iWaitForANewPageToLoad(timeOut);
+		
 		log.info("iWaitForANewPageToLoad: ");
 	}
 	

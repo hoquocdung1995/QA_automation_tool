@@ -15,16 +15,15 @@ public class PageAction {
 	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
 	ActionAPI api = new ActionAPI();
 
-	private ArrayList<String> readLocator(String locator)  {
+	public ArrayList<String> readLocator(String locator)  {
 		ArrayList<String> list = null;
 		Properties prop = new Properties();
 		try {
 		    //load a properties file from class path, inside static method
-			 String filename = SetUpConfiguration.configuration.getFileConfig();
-			
-			String file = "C://Users//training//Desktop//FitNesse//FitNesseRoot//bin//" + filename;	
-		    prop.load(new FileInputStream(file));
-
+		//	String file = "C:/Users/training//Desktop/FitNesse/FitNesseRoot/bin/locator.properties";
+			String filename = SetUpConfiguration.configuration.getUrl() + "/" + SetUpConfiguration.configuration.getFileConfig();
+ 		    prop.load(new FileInputStream(filename));
+ 		   
 		    String str = prop.getProperty(locator);
 		    String[] words =  str.split("=>");
 		    String type = words[0];
@@ -39,15 +38,14 @@ public class PageAction {
 		}
 		return list;
 	  }
-	private ArrayList<String> readLocator2(String locator1,String locator2)  {
+	
+	public ArrayList<String> readLocator2(String locator1,String locator2)  {
 		ArrayList<String> list = null;
 		Properties prop = new Properties();
 		try {
 		    //load a properties file from class path, inside static method
-			String filename = SetUpConfiguration.configuration.getFileConfig();
-			String file = "C://Users//training//Desktop//FitNesse//FitNesseRoot//bin" + filename;
-		 
-			prop.load(new FileInputStream(file));
+			String filename = SetUpConfiguration.configuration.getFileConfig(); 
+			prop.load(new FileInputStream(filename));
 		    String str = prop.getProperty(locator1);
 		    String[] words =  str.split("=>");
 		    String type = words[0];
