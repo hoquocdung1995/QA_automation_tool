@@ -1,5 +1,7 @@
 package com.csc.api;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,6 +9,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+
+import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 
 
@@ -14,9 +18,32 @@ public class ActionAPI {
 
 	private Select select;
 	
-	WebDriver driver = DriverPool.open();
+	 static WebDriver driver = DriverPool.open();
 	Actions actions = new Actions(driver);
 
+	
+	public  static String verifyElementText(String locator) {
+		PageAction action = new PageAction();
+		List<String> loca = action.readLocator(locator);
+		String type = loca.get(0);
+		String elementText = "";
+		try{
+			if (type.equals("xpath")) {
+				elementText = driver.findElement(By.xpath(loca.get(1))).getText();
+			} else if (type.equals("id")) {
+				elementText = driver.findElement(By.id(loca.get(1))).getText();
+			} else if (type.equals("name")) {
+				elementText = driver.findElement(By.name(loca.get(1))).getText();
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+			elementText = "Not found";
+		}
+
+		return elementText;
+
+	}
+	
 	public void toNavigate(String url){
 		System.out.println("I navigate");
 		driver.navigate().to(url);

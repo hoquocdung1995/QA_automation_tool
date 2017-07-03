@@ -1,7 +1,6 @@
 package com.csc.javafresher.qaautomationtool;
 
 
-import com.csc.PaseVerifications.Verification;
 import com.csc.fixture.InteractWebApplication;
 
 
@@ -14,7 +13,7 @@ public class App
     public static void main( String[] args ) throws InterruptedException
     {
     	InteractWebApplication app = new InteractWebApplication();
-    	Verification ver = new Verification();
+    
     	
         app.iNavigateToPage("https://github.com");
         app.iClickTheElement("gitSignUp");
@@ -23,8 +22,7 @@ public class App
         app.iSetTheInputWithValue("password", "tuyendt123");
         app.iClickTheElement("submit");
         
-        
-        ver.verifyElementText("success");
+
     }
 	
 	 

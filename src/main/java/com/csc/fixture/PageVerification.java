@@ -2,23 +2,24 @@ package com.csc.fixture;
 
 import java.util.List;
 
+import com.csc.PageVerifications.Verification;
+import com.csc.api.ActionAPI;
+
 import static java.util.Arrays.asList;
 
 public class PageVerification {
-	
-	  public PageVerification(String locator) {
+	private String locator;
+
+	public PageVerification(String locator) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.locator = locator;
 	}
 
 	public List<List<List<String>>> query() {
-
-	    return
-	      asList( // table level
-	        asList( // row level
-	          asList("verify text", "Welcome") // cell column name, value
-	        )
-	      );
-	  }
+		return asList( 
+				asList( 
+						asList("verify text", ActionAPI.verifyElementText(locator))
+				));
+	}
 
 }

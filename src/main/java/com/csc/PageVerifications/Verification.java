@@ -13,9 +13,9 @@ import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 
 public class Verification {
-	WebDriver driver = DriverPool.open();
+	 static WebDriver driver = DriverPool.open();
 
-	public String verifyElementText(String locator) {
+	public static String verifyElementText(String locator) {
 		PageAction action = new PageAction();
 		List<String> loca = action.readLocator(locator);
 		String type = loca.get(0);
