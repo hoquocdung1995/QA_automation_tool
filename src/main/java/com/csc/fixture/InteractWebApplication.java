@@ -6,6 +6,7 @@ import com.csc.action.PageAction;
 
 
 public class InteractWebApplication {
+	
 	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
 	PageAction action = new PageAction();
 	public InteractWebApplication() {			
