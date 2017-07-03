@@ -33,5 +33,9 @@ public class DriverPool {
 		}
 		return webDriver;
 	}
+	
+	public static WebDriver getDriverPool(){
+		return webDriver;
+	}
 
 }

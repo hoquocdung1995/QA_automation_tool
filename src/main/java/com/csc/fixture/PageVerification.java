@@ -18,7 +18,7 @@ public class PageVerification {
 	public List<List<List<String>>> query() {
 		return asList( 
 				asList( 
-						asList("verify text", ActionAPI.verifyElementText(locator))
+						asList("verify text", Verification.verifyElementText(locator))
 				));
 	}
 

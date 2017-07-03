@@ -13,7 +13,7 @@ import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 
 public class Verification {
-	 static WebDriver driver = DriverPool.open();
+	static WebDriver driver = DriverPool.getDriverPool();
 
 	public static String verifyElementText(String locator) {
 		PageAction action = new PageAction();
