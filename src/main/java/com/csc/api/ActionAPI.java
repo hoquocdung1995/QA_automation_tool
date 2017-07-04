@@ -23,8 +23,8 @@ import com.csc.driverpool.DriverPool;
 public class ActionAPI {
 
 	private Select select;
-
-	static WebDriver driver = DriverPool.open();
+	
+	static WebDriver driver = DriverPool.getDriverPool();
 	Actions actions = new Actions(driver);
 	private WebElement element;
 	private static File filechrome = new File("D:/finalProjectFitnesse/chromedriver.exe");

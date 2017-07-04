@@ -11,7 +11,7 @@ public class Property {
 	public static void setProperty(String fileName, String value, String property) {
 		Properties prop = new Properties();
 		OutputStream output = null;
-		String path = SetUpConfiguration.configuration.getUrl() + fileName;
+		String path = SetUpConfiguration.configuration.getUrl() + "/" + fileName;
 		try {
 
 			output = new FileOutputStream(path, true);
