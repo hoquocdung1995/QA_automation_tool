@@ -270,7 +270,7 @@ public class ActionAPI {
 	}
 
 	public void openFirefox() {
-		driver = DriverPool.open();
+		driver = DriverPool.getDriverPool();
 		Set<String> allHandles = driver.getWindowHandles();
 		System.out.println("Count of windows:" + allHandles.size());
 		allHandles.remove(allHandles.iterator().next());
