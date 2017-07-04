@@ -146,8 +146,8 @@ public class PageAction {
 		log.info("iSelectTheOptionFromADropDown: ");
 	}
 	
-	public void iSelectTheWindow(String windowId){
-		api.toSwitchToWindow(windowId);
+	public void iSelectTheWindow(){
+		api.openFirefox();
 		log.info("iSelectTheWindow: ");
 	}
 	
@@ -157,8 +157,8 @@ public class PageAction {
 		log.info("iSetTheInputWithValue: ");
 	}
 
-	public void iWaitForANewPageToLoad(String timeOut){
-		api.toWaitforProperty(timeOut);
+	public void iWaitForANewPageToLoad(String type, String value){
+		api.toWaitforProperty(type, value);
 		log.info("iWaitForANewPageToLoad: ");
 	}
 	

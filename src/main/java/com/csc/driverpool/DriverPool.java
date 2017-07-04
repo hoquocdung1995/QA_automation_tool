@@ -27,6 +27,7 @@ public class DriverPool {
 		} else if (browser.equalsIgnoreCase("CHROME")) {
 			try {
 				webDriver =	new RemoteWebDriver(new URL(testSlaveMachine), DesiredCapabilities.chrome());
+				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -37,5 +38,6 @@ public class DriverPool {
 	public static WebDriver getDriverPool(){
 		return webDriver;
 	}
+
 
 }
