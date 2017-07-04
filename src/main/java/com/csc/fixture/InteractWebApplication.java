@@ -16,6 +16,14 @@ public class InteractWebApplication {
 		action.iNavigateToPage(url);
 		log.info("iNavigateToPage: ");
 	}
+	
+	public void iOpenChrome(){
+		action.iOpenChrome();
+	}
+	
+	public void iOpenFirefox(){
+		action.iOpenFirefox();
+	}
 
 	public void iClickTheElement(String locator) throws InterruptedException {
 		action.iClickTheElement(locator);
@@ -78,7 +86,7 @@ public class InteractWebApplication {
 	}
 	
 	public void iSelectTheWindow(){
-		action.iSelectTheWindow();
+		action.iOpenFirefox();
 		log.info("iSelectTheWindow: ");
 	}
 	

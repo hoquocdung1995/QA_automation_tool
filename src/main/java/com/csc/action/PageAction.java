@@ -146,8 +146,13 @@ public class PageAction {
 		log.info("iSelectTheOptionFromADropDown: ");
 	}
 	
-	public void iSelectTheWindow(){
+	public void iOpenFirefox(){
 		api.openFirefox();
+		log.info("iSelectTheWindow: ");
+	}
+	
+	public void iOpenChrome(){
+		api.openChrome();
 		log.info("iSelectTheWindow: ");
 	}
 	

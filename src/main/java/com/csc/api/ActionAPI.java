@@ -27,7 +27,7 @@ public class ActionAPI {
 	static WebDriver driver = DriverPool.open();
 	Actions actions = new Actions(driver);
 	private WebElement element;
-	private static File filechrome = new File("C:/Users/training/Downloads/chromedriver/chromedriver.exe");
+	private static File filechrome = new File("D:/finalProjectFitnesse/chromedriver.exe");
 
 	public static String verifyElementText(String locator) {
 		PageAction action = new PageAction();
