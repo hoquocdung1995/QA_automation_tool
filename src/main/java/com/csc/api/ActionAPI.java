@@ -32,7 +32,6 @@ public class ActionAPI {
 	static WebDriver driver = DriverPool.getDriverPool();
 	Actions actions = new Actions(driver);
 	private WebElement element;
-	private static File filechrome = new File("D:/finalProjectFitnesse/chromedriver.exe");
 
 	public static String verifyElementText(String locator) {
 		PageAction action = new PageAction();
@@ -71,8 +70,10 @@ public class ActionAPI {
 			driver.findElement(By.id(value)).click();
 		else if ("name".equals(type))
 			driver.findElement(By.name(value)).click();
-		else if ("xpath".equals(type))
-		driver.findElement(By.xpath((value))).click();
+		else if ("xpath".equals(type)){
+			driver.findElement(By.xpath((value))).click();
+		}
+		
 	}
 
 	// set Input for element
@@ -211,16 +212,20 @@ public class ActionAPI {
 	}
 
 	// Wait_For_Property
-	public void toWaitforProperty(String type, String value) {
-		if (type.equalsIgnoreCase("id")) {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(value)));
+	public void toWaitforProperty(String type, String value, String timeOut) {
+		int tOut = Integer.parseInt(timeOut); 
+		if (type.equalsIgnoreCase("id")) {			
+			WebDriverWait wait = new WebDriverWait(driver, tOut);
+			element = driver.findElement(By.id(value));
+		    wait.until(ExpectedConditions.visibilityOf(element));
 		} else if (type.equalsIgnoreCase("name")) {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(value)));
+			WebDriverWait wait = new WebDriverWait(driver, tOut);
+			element = driver.findElement(By.name(value));
+			wait.until(ExpectedConditions.visibilityOf(element));
 		} else if (type.equalsIgnoreCase("xpath")) {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(value)));
+			WebDriverWait wait = new WebDriverWait(driver, tOut);
+			element = driver.findElement(By.xpath(value));
+			wait.until(ExpectedConditions.visibilityOf(element));
 		}
 	}
 

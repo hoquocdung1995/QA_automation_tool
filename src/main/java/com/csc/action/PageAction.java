@@ -162,8 +162,8 @@ public class PageAction {
 		log.info("iSetTheInputWithValue: ");
 	}
 
-	public void iWaitForANewPageToLoad(String type, String value){
-		api.toWaitforProperty(type, value);
+	public void iWaitForANewPageToLoad(String type, String value, String timeOut){
+		api.toWaitforProperty(type, value, timeOut);
 		log.info("iWaitForANewPageToLoad: ");
 	}
 	
