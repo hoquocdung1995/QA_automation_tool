@@ -18,7 +18,7 @@ public class Screenshot {
 	public static void screenshot(WebDriver driver){
 		try {
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File(SetUpConfiguration.configuration.getUrl() + Screenshot.date() + ".jpg"));
+			FileUtils.copyFile(scrFile, new File("FitNesseRoot/files/screenshot/" + Screenshot.date() + ".jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
