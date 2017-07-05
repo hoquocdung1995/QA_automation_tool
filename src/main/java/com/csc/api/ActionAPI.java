@@ -1,6 +1,8 @@
 package com.csc.api;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,17 +15,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
+import com.csc.fixture.SetUpConfiguration;
 
 public class ActionAPI {
 
 	private Select select;
-	
+
 	static WebDriver driver = DriverPool.getDriverPool();
 	Actions actions = new Actions(driver);
 	private WebElement element;
@@ -50,7 +55,8 @@ public class ActionAPI {
 		return elementText;
 
 	}
-	//navigate
+
+	// navigate
 	public void toNavigate(String url) {
 		System.out.println("I navigate");
 		driver.navigate().to(url);
@@ -58,24 +64,19 @@ public class ActionAPI {
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
 	}
-	//Click element
+
+	// Click element
 	public void toClick(String type, String value) throws InterruptedException {
-		System.out.println("I click");
-		System.out.println(type);
-		System.out.println(value);
-		System.out.println(driver.getCurrentUrl());
-		System.out.println(driver.getTitle());
 		if ("id".equals(type))
 			driver.findElement(By.id(value)).click();
 		else if ("name".equals(type))
 			driver.findElement(By.name(value)).click();
 		else if ("xpath".equals(type))
-			Thread.sleep(2000);
 		driver.findElement(By.xpath((value))).click();
 	}
-	//set Input for element
+
+	// set Input for element
 	public void toSetInput(String type, String value, String input) {
-		System.out.println("I set input");
 		if ("id".equals(type))
 			driver.findElement(By.id(value)).sendKeys(input);
 		else if ("name".equals(type))
@@ -83,11 +84,13 @@ public class ActionAPI {
 		else if ("xpath".equals(type))
 			driver.findElement(By.xpath((value))).sendKeys(input);
 	}
-   //close browser
+
+	// close browser
 	public void toCloseBrowser() {
 		driver.close();
 	}
-	//Double click element
+
+	// Double click element
 	public void toDoubleClick(String type, String value) {
 		if ("id".equals(type))
 			actions.doubleClick(driver.findElement(By.id(value))).perform();
@@ -97,7 +100,8 @@ public class ActionAPI {
 			actions.doubleClick(driver.findElement(By.xpath(value))).perform();
 		;
 	}
-	//Select Option from drop down list
+
+	// Select Option from drop down list
 	public void toSelectDropdownList(String type, String value, String input) {
 		if (type.equalsIgnoreCase("id")) {
 			select = new Select(driver.findElement(By.id(value)));
@@ -110,6 +114,7 @@ public class ActionAPI {
 			select.selectByVisibleText(input);
 		}
 	}
+
 	// Select_Option//Use_only_NameAttribute
 	public void toSelectOption(String value, String input) {
 		List<WebElement> e = driver.findElements(By.name(value));
@@ -119,10 +124,9 @@ public class ActionAPI {
 			}
 		}
 	}
-	//Excute Javascript
-	public void toExcuteJavascript(String type, String value, String script) {
 
-		try {
+	// Excute Javascript
+	public void toExcuteJavascript(String script, String type, String value) {
 			if (type.toLowerCase().equals("id") && driver instanceof JavascriptExecutor) {
 				driver.findElement(By.id(value));
 				((JavascriptExecutor) driver).executeScript(script);
@@ -133,10 +137,8 @@ public class ActionAPI {
 				driver.findElement(By.xpath(value));
 				((JavascriptExecutor) driver).executeScript(script);
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 	}
+
 	// Drag and drop
 	public void toDragAndDrop(String type1, String value1, String type2, String value2) {
 		if ("id".equals(type1)) {
@@ -154,7 +156,8 @@ public class ActionAPI {
 			} else if ("name".equals(type2)) {
 				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.name(value2))).perform();
 			} else if ("xpath".equals(type2)) {
-				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.xpath(value2))).perform();
+				actions.dragAndDrop(driver.findElement(By.name(value1)), driver.findElement(By.xpath(value2)))
+						.perform();
 			}
 		}
 
@@ -165,14 +168,17 @@ public class ActionAPI {
 				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.name(value2)))
 						.perform();
 			} else if ("xpath".equals(type2)) {
-				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.xpath(value2))).perform();
+				actions.dragAndDrop(driver.findElement(By.xpath(value1)), driver.findElement(By.xpath(value2)))
+						.perform();
 			}
 		}
 	}
+
 	// Refresh page
 	public void toRefresh() {
 		driver.navigate().refresh();
 	}
+
 	// Get Element text (by element attribute)
 	public String toGetElementText(String type, String value) {
 		if (type.toLowerCase().equals("id")) {
@@ -239,21 +245,21 @@ public class ActionAPI {
 	// Prees_Left_Mouse
 	public void toPressLeftMouse(String type, String value) {
 		if ("id".equals(type))
-			actions.clickAndHold(driver.findElement(By.id(value)));
+			actions.clickAndHold(driver.findElement(By.id(value))).perform();
 		else if ("name".equals(type))
-			actions.clickAndHold(driver.findElement(By.name(value)));
+			actions.clickAndHold(driver.findElement(By.name(value))).perform();
 		else if ("xpath".equals(type))
-			actions.clickAndHold(driver.findElement(By.xpath(value)));
+			actions.clickAndHold(driver.findElement(By.xpath(value))).perform();
 	}
 
 	// Release_Mouse
 	public void toReleaseMouse(String type, String value) {
 		if ("id".equals(type))
-			actions.release(driver.findElement(By.id(value)));
+			actions.release(driver.findElement(By.id(value))).perform();
 		else if ("name".equals(type))
-			actions.release(driver.findElement(By.name(value)));
+			actions.release(driver.findElement(By.name(value))).perform();
 		else if ("xpath".equals(type))
-			actions.release(driver.findElement(By.xpath(value)));
+			actions.release(driver.findElement(By.xpath(value))).perform();
 	}
 
 	public void toResizeWindown() {
@@ -270,27 +276,35 @@ public class ActionAPI {
 	}
 
 	public void openFirefox() {
-		driver = DriverPool.getDriverPool();
+
+		try {
+			String ip = SetUpConfiguration.configuration.getTestSlaveMachine();
+			driver = new RemoteWebDriver(new URL(ip), DesiredCapabilities.firefox());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Set<String> allHandles = driver.getWindowHandles();
 		System.out.println("Count of windows:" + allHandles.size());
 		allHandles.remove(allHandles.iterator().next());
 		// get the last Window Handle
 		String lastHandle = allHandles.iterator().next();
-		// switch to second/last window, because we know there are only two
-		// windows 1-parent window 2-other window(ad window)
 		driver.switchTo().window(lastHandle);
 	}
 
 	public void openChrome() {
-		System.setProperty("webdriver.chrome.driver", filechrome.getAbsolutePath());
-		driver = new ChromeDriver();
+		try {
+			String ip = SetUpConfiguration.configuration.getTestSlaveMachine();
+			driver = new RemoteWebDriver(new URL(ip), DesiredCapabilities.chrome());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Set<String> allHandles = driver.getWindowHandles();
 		System.out.println("Count of windows:" + allHandles.size());
 		allHandles.remove(allHandles.iterator().next());
 		// get the last Window Handle
 		String lastHandle = allHandles.iterator().next();
-		// switch to second/last window, because we know there are only two
-		// windows 1-parent window 2-other window(ad window)
 		driver.switchTo().window(lastHandle);
 	}
 

@@ -174,7 +174,7 @@ public class PageAction {
 	
 	public void iExecuteJavascriptOnElement(String script, String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toExcuteJavascript(list.get(0), list.get(1), script);
+		api.toExcuteJavascript(script,list.get(0), list.get(1));
 		log.info("iExecuteJavaScriptOnElement: ");
 	}
 	
