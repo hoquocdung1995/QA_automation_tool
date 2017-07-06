@@ -96,8 +96,8 @@ public class InteractWebApplication {
 		log.info("iSetTheInputWithValue: ");
 	}
 
-	public void iWaitForANewPageToLoad(String type, String value){
-		action.iWaitForANewPageToLoad(type, value);
+	public void iWaitForANewPageToLoad(String type, String value,String timeOut){
+		action.iWaitForANewPageToLoad(type, value, timeOut);
 		
 		log.info("iWaitForANewPageToLoad: ");
 	}

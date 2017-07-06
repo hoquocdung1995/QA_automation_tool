@@ -162,8 +162,8 @@ public class PageAction {
 		log.info("iSetTheInputWithValue: ");
 	}
 
-	public void iWaitForANewPageToLoad(String type, String value){
-		api.toWaitforProperty(type, value);
+	public void iWaitForANewPageToLoad(String type, String value, String timeOut){
+		api.toWaitforProperty(type, value, timeOut);
 		log.info("iWaitForANewPageToLoad: ");
 	}
 	
@@ -174,7 +174,7 @@ public class PageAction {
 	
 	public void iExecuteJavascriptOnElement(String script, String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toExcuteJavascript(list.get(0), list.get(1), script);
+		api.toExcuteJavascript(script,list.get(0), list.get(1));
 		log.info("iExecuteJavaScriptOnElement: ");
 	}
 	
