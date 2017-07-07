@@ -65,6 +65,7 @@ public class PageAction {
 		    list.add(type2);
 		    list.add(val2);
 		} 
+		
 		catch (IOException ex) {
 		    ex.printStackTrace();
 		}
@@ -101,8 +102,9 @@ public class PageAction {
 	}
 	
 	public void iDragTheElementAndDropToTheElement(String locator1, String locator2){
-		ArrayList<String> list = readLocator2(locator1,locator2);
-		api.toDragAndDrop(list.get(0),list.get(1),list.get(2),list.get(3));
+		ArrayList<String> list = readLocator(locator1);
+		ArrayList<String> list2 = readLocator(locator2);
+		api.toDragAndDrop(list.get(0),list.get(1),list2.get(0),list2.get(2));
 	}
 	
 	public void iMoveTheFocusToTheElement(String locator){

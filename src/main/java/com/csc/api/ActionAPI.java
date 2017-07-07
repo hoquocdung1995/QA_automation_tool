@@ -31,12 +31,11 @@ public class ActionAPI {
 
 	private Select select;
 	Actions actions;
-	static WebDriver driver;
+	static WebDriver driver = DriverPool.createDriverPool();
 	private WebElement element;
 
 	public ActionAPI() {
-		super();
-		driver = DriverPool.getDriverPool();
+		//driver = DriverPool.createDriverPool();
 		this.actions = new Actions(driver);
 	}
 
@@ -232,7 +231,7 @@ public class ActionAPI {
 	}
 
 	/*
-	 * open Fire fox and handle here
+	 * Open Firefox and handle here
 	 */
 	public void openFirefox() {
 
@@ -252,7 +251,7 @@ public class ActionAPI {
 	}
 
 	/*
-	 * open chrome and handle here
+	 * Open Chrome and handle here
 	 */
 	public void openChrome() {
 		try {
@@ -271,46 +270,64 @@ public class ActionAPI {
 	}
 
 	/*
-	 * Prees_Left_Mouse
+	 * Press_Left_Mouse
 	 */
 	public void toPressLeftMouse(String type, String value) {
 		actions.clickAndHold(driver.findElement(toDefineElement(type, value))).perform();
 	}
 
+	public void toMoveMouse(String type, String value){
+		actions.moveToElement(driver.findElement(toDefineElement(type, value))).perform();
+	}
 	/*
 	 * Release_Mouse
 	 */
 	public void toReleaseMouse(String type, String value) {
 		actions.release(driver.findElement(toDefineElement(type, value))).perform();
 	}
-
+	
+	/*
+	 * Resize Window
+	 */
 	public void toResizeWindown() {
 		Dimension dimension = new Dimension(800, 600);
 		driver.manage().window().setSize(dimension);
 	}
-
+	/*
+	 * Maximize Window
+	 */
 	public void toMaximizeWindow() {
 		driver.manage().window().maximize();
 	}
-
+	/*
+	 * Minimize Window
+	 */
 	public void toMinimizeWindow() {
 		driver.manage().window().setPosition(new Point(-2000, 0));
 	}
 
-	public void toShowPopUp(String windownId) {
+	/*
+	 * Give focus to current window
+	 */
+	public void toGiveFocusToCurrentWindow() {
+		actions.release();
+	}
+	/*
+	 * Move 
+	 */
+	public void toMoveTheFocusToElement(String type, String value) {
+		element = driver.findElement(toDefineElement(type, value));  
+		Point location = element.getLocation();  
+		actions.moveToElement(element, location.x, location.y).click().perform();
+	}
+	
+	public void toShowPopUp(String windowId) {
 
 	}
 
 	public void toOpenPopUpWithUrl(String url, String windowId) {
 
 	}
-
-	public void toGiveFocusToCurrentWindow() {
-
-	}
-
-	public void toMoveTheFocusToElement(String string, String string2) {
-
-	}
+	
 
 }

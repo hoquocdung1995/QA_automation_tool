@@ -19,7 +19,7 @@ public class DriverPool {
 	private static String browser = SetUpConfiguration.configuration.getBrowser();
 	private static String testSlaveMachine = SetUpConfiguration.configuration.getTestSlaveMachine();
 
-	public static WebDriver getDriverPool() {
+	public static WebDriver createDriverPool() {
 		switch (driver) {
 		case TestConstant.DRIVER_FIREFOX:
 			try {
@@ -28,8 +28,7 @@ public class DriverPool {
 					capabilities.setBrowserName(BrowserType.FIREFOX);
 				capabilities.setPlatform(Platform.WIN10);
 				webDriver = new RemoteWebDriver(new URL(testSlaveMachine), capabilities);
-				System.setProperty("webdriver.gecko.driver",
-						"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/geckodriver.exe");
+				System.setProperty("webdriver.gecko.driver","C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/geckodriver.exe");
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -41,8 +40,7 @@ public class DriverPool {
 					capabilities.setBrowserName(BrowserType.CHROME);
 				capabilities.setPlatform(Platform.WIN10);
 				webDriver = new RemoteWebDriver(new URL(testSlaveMachine), capabilities);
-				System.setProperty("webdriver.chrome.driver",
-						"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/chromedriver.exe");
+				System.setProperty("webdriver.chrome.driver","C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/chromedriver.exe");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -54,5 +52,14 @@ public class DriverPool {
 		return webDriver;
 	}
 
+	public static WebDriver getDriverPool(){
+		return webDriver;
+	}
+	
+	
+	public static WebDriver closeDriverPool(){
+		webDriver.close();
+		return webDriver;
+	}
 
 }
