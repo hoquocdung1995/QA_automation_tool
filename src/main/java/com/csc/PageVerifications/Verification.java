@@ -36,6 +36,4 @@ public class Verification {
 		return elementText;
 
 	}
-	
-
 }
