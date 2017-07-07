@@ -5,8 +5,8 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import com.csc.fixture.SetUpConfiguration;
 
-public class MyLog {	
-	private static org.apache.log4j.Logger log = Logger.getLogger(MyLog.class);
+public class Logging {	
+	private static org.apache.log4j.Logger log = Logger.getLogger(Logging.class);
 
 	public static void info(String message) {
 		log.info(message);
