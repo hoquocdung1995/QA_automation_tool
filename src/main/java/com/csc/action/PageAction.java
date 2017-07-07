@@ -76,79 +76,65 @@ public class PageAction {
 	public void iNavigateToPage(String url) {
 		System.out.println("Page Navigate");
 		api.toNavigate(url);
-		log.info("iNavigateToPage: ");
 	}
 
 	public void iClickTheElement(String locator) throws InterruptedException {
 		ArrayList<String> list = readLocator(locator);		
 		api.toClick(list.get(0), list.get(1));
-		log.info("iClickTheElement: ");
 	}
 
 	public void iShouldSeeThePopupAppears(String windowId) {
 		api.toShowPopUp(windowId);
-		log.info("iShouldSeeThePopupAppears: ");
 	}
 	
 	public void iOpenThePopupWindowWith(String url, String windowId) {
 		api.toOpenPopUpWithUrl(url, windowId);
-		log.info("iOpenThePopupWindowWith: ");
 	}
 	
 	public void iCloseTheBrowser(){
 		api.toCloseBrowser();
-		log.info("iCloseTheBrowser: ");
 	}
 	
 	public void iDoubleClickTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
 		api.toDoubleClick(list.get(0), list.get(1));
-		log.info("iDoubleClickTheElement: ");
 	}
 	
 	public void iDragTheElementAndDropToTheElement(String locator1, String locator2){
 		ArrayList<String> list = readLocator2(locator1,locator2);
 		api.toDragAndDrop(list.get(0),list.get(1),list.get(2),list.get(3));
-		log.info("iDragTheElementAndDropToTheElement: ");
 	}
 	
 	public void iMoveTheFocusToTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
 		api.toMoveTheFocusToElement(list.get(0), list.get(1));
-		log.info("iMoveTheFocusToTheElement: ");
 	}
 	
 	public void iPressTheLeftMouseButtonOnTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
 		api.toPressLeftMouse(list.get(0), list.get(1));
-		log.info("iPressTheLeftMouseButtonOnTheElement: ");
 	}
 
 	public void iReleaseTheLeftMouseButtonOnTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
 		api.toReleaseMouse(list.get(0), list.get(1));
-		log.info("iReleaseTheLeftMouseButtonOnTheElement: ");
 	}
 	
 	public void iPause(String waitTime){
 		api.toPause(waitTime);
-		log.info("iPause: ");
 	}
 	
 	public void iRefresh(){
 		api.toRefresh();
-		log.info("iRefresh: ");
 	}
 	
 	public void iSelectTheOptionFromADropDown(String optionLocator, String input){
 		ArrayList<String> list = readLocator(optionLocator);
 		api.toSelectDropdownList(list.get(0),list.get(1),input);
-		log.info("iSelectTheOptionFromADropDown: ");
 	}
 	
 	public void iOpenFirefox(){
 		api.openFirefox();
-		log.info("iSelectTheWindow: ");
 	}
 	
 	public void iOpenChrome(){
@@ -182,10 +168,5 @@ public class PageAction {
 		api.toResizeWindown();
 		log.info("iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen: ");
 	}
-	
-	
-	
-	
-	
 	
 }
