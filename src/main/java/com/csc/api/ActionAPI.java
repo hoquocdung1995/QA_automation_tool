@@ -31,7 +31,7 @@ public class ActionAPI {
 
 	private Select select;
 	Actions actions;
-	static WebDriver driver = DriverPool.createDriverPool();
+	static WebDriver driver = DriverPool.createDriver();
 	private WebElement element;
 
 	public ActionAPI() {
@@ -44,15 +44,15 @@ public class ActionAPI {
 	 */
 	public By toDefineElement(String type, String value) {
 		By by = null;
-		if (TestConstant.xpath.equalsIgnoreCase(type)) {
+		if (TestConstant.XPATH.equalsIgnoreCase(type)) {
 			by = By.xpath(value);
-		} else if (TestConstant.name.equalsIgnoreCase(type)) {
+		} else if (TestConstant.NAME.equalsIgnoreCase(type)) {
 			by = By.name(value);
-		} else if (TestConstant.id.equalsIgnoreCase(type)) {
+		} else if (TestConstant.ID.equalsIgnoreCase(type)) {
 			by = By.id(value);
-		} else if (TestConstant.cssSelector.equalsIgnoreCase(type) || TestConstant.css.equalsIgnoreCase(type)) {
+		} else if (TestConstant.CSS_SELECTOR.equalsIgnoreCase(type) || TestConstant.CSS.equalsIgnoreCase(type)) {
 			by = By.cssSelector(value);
-		} else if (TestConstant.tagName.equalsIgnoreCase(type) || TestConstant.tag.equalsIgnoreCase(type)) {
+		} else if (TestConstant.TAGNAME.equalsIgnoreCase(type) || TestConstant.TAG.equalsIgnoreCase(type)) {
 			by = By.cssSelector(value);
 		}
 		return by;
@@ -67,11 +67,11 @@ public class ActionAPI {
 		String type = locators.get(0);
 		String elementText = "";
 		try {
-			if (TestConstant.xpath.equalsIgnoreCase(type)) {
+			if (TestConstant.XPATH.equalsIgnoreCase(type)) {
 				elementText = driver.findElement(By.xpath(locators.get(1))).getText();
-			} else if (TestConstant.name.equalsIgnoreCase(type)) {
+			} else if (TestConstant.NAME.equalsIgnoreCase(type)) {
 				elementText = driver.findElement(By.name(locators.get(1))).getText();
-			} else if (TestConstant.id.equalsIgnoreCase(type)) {
+			} else if (TestConstant.ID.equalsIgnoreCase(type)) {
 				elementText = driver.findElement(By.id(locators.get(1))).getText();
 			}
 		} catch (Exception e) {
