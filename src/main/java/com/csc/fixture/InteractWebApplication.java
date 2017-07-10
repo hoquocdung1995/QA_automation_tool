@@ -25,8 +25,8 @@ public class InteractWebApplication {
 		PageAction.iNavigateToPage(url);
 	}
 
-	public void iOpenBrowser(String browserType) {
-		PageAction.openNewBrowser(browserType);
+	public void iOpenBrowserAndNameIt(String browserType, String key) {
+		PageAction.openNewBrowser(key, browserType);
 	}
 
 	public void iClickTheElement(String locator) throws InterruptedException {

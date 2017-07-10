@@ -247,14 +247,12 @@ public class ActionAPI {
 		actions.clickAndHold(driver.findElement(toDefineElement(type, value))).perform();
 	}
 
-	public static void toMoveMouse(String type, String value){
-		actions.moveToElement(driver.findElement(toDefineElement(type, value))).perform();
-	}
+	
 	/*
 	 * Release_Mouse
 	 */
 	public static void toReleaseMouse(String type, String value) {
-		actions.release(driver.findElement(toDefineElement(type, value))).perform();
+		actions.moveToElement(driver.findElement(toDefineElement(type, value))).release().perform();
 	}
 	
 	/*
