@@ -35,4 +35,46 @@ public class Verification {
 		return elementText;
 
 	}
+	
+	public static String verifyDropDownList(String locator) {
+		WebDriver driver = DriverPool.getCurrentDriver();
+		List<String> loca = PageAction.readLocator(locator);
+		String type = loca.get(0);
+		String elementText = "";
+		try {
+			if (type.equals("xpath")) {
+				String dropdown = driver.findElement(By.xpath(loca.get(1))).getText();
+
+				String[] str = dropdown.split("\\s");
+				for (String s : str) {
+					elementText = elementText + s;
+				}
+
+			} else if (type.equals("id")) {
+
+				String dropdown = driver.findElement(By.id(loca.get(1))).getText();
+
+				String[] str = dropdown.split("\\s");
+				for (String s : str) {
+					elementText = elementText + s;
+				}
+
+			} else if (type.equals("name")) {
+				String dropdown = driver.findElement(By.name(loca.get(1))).getText();
+
+				String[] str = dropdown.split("\\s");
+				for (String s : str) {
+					elementText = elementText + s;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			elementText = "Not found";
+		}
+
+		return elementText;
+
+	}
+
 }
