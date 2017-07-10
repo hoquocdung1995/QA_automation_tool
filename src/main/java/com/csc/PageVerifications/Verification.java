@@ -13,11 +13,10 @@ import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 
 public class Verification {
-	static WebDriver driver = DriverPool.getDriverPool();
-
+	
 	public static String verifyElementText(String locator) {
-		PageAction action = new PageAction();
-		List<String> loca = action.readLocator(locator);
+		WebDriver driver = DriverPool.getCurrentDriver();
+		List<String> loca = PageAction.readLocator(locator);
 		String type = loca.get(0);
 		String elementText = "";
 		try{

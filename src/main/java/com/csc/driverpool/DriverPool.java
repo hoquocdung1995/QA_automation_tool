@@ -17,9 +17,9 @@ public class DriverPool {
 			case "Chrome": 
 				try {
 					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4445/wd/hub"), capabilities);
+					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 					System.setProperty("webdriver.gecko.driver",
-							"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/geckodriver.exe");
+							"D:/finalProjectFitnesse/geckodriver.exe");
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
@@ -28,9 +28,9 @@ public class DriverPool {
 			case "Firefox":
 				try {
 					DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4445/wd/hub"), capabilities);
+					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 					System.setProperty("webdriver.chrome.driver",
-							"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/chromedriver.exe");
+							"D:/finalProjectFitnesse/chromedriver.exe");
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();

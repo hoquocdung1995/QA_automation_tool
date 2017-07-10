@@ -8,19 +8,37 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import com.csc.api.ActionAPI;
+import com.csc.driverpool.DriverPool;
 import com.csc.fixture.InteractWebApplication;
 import com.csc.fixture.SetUpConfiguration;
 
 public class PageAction {
 	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
-	ActionAPI api = new ActionAPI();
 
-	public void iWaitForMs(String time){
-		api.toPause(time);
+	public static void openNewBrowser(String browserType){
+		switch(browserType){
+		case "Chrome": 
+		 	DriverPool.createDriver("chrome1", "Chrome");
+	        ActionAPI.setDriverForAction("chrome1");
+			break;
+		case "Firefox":
+			DriverPool.createDriver("firefox1", "Firefox");
+	        ActionAPI.setDriverForAction("firefox1");
+			break;
+		}
+	}
+	
+	public static void switchToBrowser(String key){
+		ActionAPI.setDriverForAction(key);
+	}
+	
+	
+	public static void iWaitForMs(String time){
+		ActionAPI.toPause(time);
 		
 	}
 	
-	public ArrayList<String> readLocator(String locator)  {
+	public static ArrayList<String> readLocator(String locator)  {
 		ArrayList<String> list = null;
 		Properties prop = new Properties();
 		try {
@@ -44,7 +62,7 @@ public class PageAction {
 		return list;
 	  }
 	
-	public ArrayList<String> readLocator2(String locator1,String locator2)  {
+	public static ArrayList<String> readLocator2(String locator1,String locator2)  {
 		ArrayList<String> list = null;
 		Properties prop = new Properties();
 		try {
@@ -74,101 +92,91 @@ public class PageAction {
 	
 	
 
-	public void iNavigateToPage(String url) {
+	public static void iNavigateToPage(String url) {
 		System.out.println("Page Navigate");
-		api.toNavigate(url);
+		ActionAPI.toNavigate(url);
 	}
 
-	public void iClickTheElement(String locator) throws InterruptedException {
+	public static void iClickTheElement(String locator) throws InterruptedException {
 		ArrayList<String> list = readLocator(locator);		
-		api.toClick(list.get(0), list.get(1));
+		ActionAPI.toClick(list.get(0), list.get(1));
 	}
 
-	public void iShouldSeeThePopupAppears(String windowId) {
-		api.toShowPopUp(windowId);
+	public static void iShouldSeeThePopupAppears(String windowId) {
+		ActionAPI.toShowPopUp(windowId);
 	}
 	
-	public void iOpenThePopupWindowWith(String url, String windowId) {
-		api.toOpenPopUpWithUrl(url, windowId);
+	public static void iOpenThePopupWindowWith(String url, String windowId) {
+		ActionAPI.toOpenPopUpWithUrl(url, windowId);
 	}
 	
-	public void iCloseTheBrowser(){
-		api.toCloseBrowser();
+	public static void iCloseTheBrowser(){
+		ActionAPI.toCloseBrowser();
 	}
 	
-	public void iDoubleClickTheElement(String locator){
+	public static void iDoubleClickTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toDoubleClick(list.get(0), list.get(1));
+		ActionAPI.toDoubleClick(list.get(0), list.get(1));
 	}
 	
-	public void iDragTheElementAndDropToTheElement(String locator1, String locator2){
+	public static void iDragTheElementAndDropToTheElement(String locator1, String locator2){
 		ArrayList<String> list = readLocator(locator1);
 		ArrayList<String> list2 = readLocator(locator2);
-		api.toDragAndDrop(list.get(0),list.get(1),list2.get(0),list2.get(2));
+		ActionAPI.toDragAndDrop(list.get(0),list.get(1),list2.get(0),list2.get(2));
 	}
 	
-	public void iMoveTheFocusToTheElement(String locator){
+	public static void iMoveTheFocusToTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toMoveTheFocusToElement(list.get(0), list.get(1));
+		ActionAPI.toMoveTheFocusToElement(list.get(0), list.get(1));
 	}
 	
-	public void iPressTheLeftMouseButtonOnTheElement(String locator){
+	public static void iPressTheLeftMouseButtonOnTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toPressLeftMouse(list.get(0), list.get(1));
+		ActionAPI.toPressLeftMouse(list.get(0), list.get(1));
 	}
 
-	public void iReleaseTheLeftMouseButtonOnTheElement(String locator){
+	public static void iReleaseTheLeftMouseButtonOnTheElement(String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toReleaseMouse(list.get(0), list.get(1));
+		ActionAPI.toReleaseMouse(list.get(0), list.get(1));
 	}
 	
-	public void iPause(String waitTime){
-		api.toPause(waitTime);
+	public static void iPause(String waitTime){
+		ActionAPI.toPause(waitTime);
 	}
 	
-	public void iRefresh(){
-		api.toRefresh();
+	public static void iRefresh(){
+		ActionAPI.toRefresh();
 	}
 	
-	public void iSelectTheOptionFromADropDown(String optionLocator, String input){
+	public static void iSelectTheOptionFromADropDown(String optionLocator, String input){
 		ArrayList<String> list = readLocator(optionLocator);
-		api.toSelectDropdownList(list.get(0),list.get(1),input);
+		ActionAPI.toSelectDropdownList(list.get(0),list.get(1),input);
 	}
 	
-	public void iOpenFirefox(){
-		api.openFirefox();
-	}
-	
-	public void iOpenChrome(){
-		api.openChrome();
-		log.info("iSelectTheWindow: ");
-	}
-	
-	public void iSetTheInputWithValue(String locator, String value){
+	public static void iSetTheInputWithValue(String locator, String value){
 		ArrayList<String> list = readLocator(locator);		
-		api.toSetInput(list.get(0), list.get(1), value);
-		log.info("iSetTheInputWithValue: ");
+		ActionAPI.toSetInput(list.get(0), list.get(1), value);
 	}
 
-	public void iWaitForANewPageToLoad(String type, String value, String timeOut){
-		api.toWaitforProperty(type, value, timeOut);
-		log.info("iWaitForANewPageToLoad: ");
+	public static void iWaitForANewPageToLoad(String type, String value, String timeOut){
+		ActionAPI.toWaitforProperty(type, value, timeOut);
 	}
 	
-	public void iGiveFocusToTheCurrentlySelectedWindow(){
-		api.toGiveFocusToCurrentWindow();
-		log.info("iGiveFocusToTheCurrentlySelectedWindow: ");
+	public static void iGiveFocusToTheCurrentlySelectedWindow(){
+		ActionAPI.toGiveFocusToCurrentWindow();
 	}
 	
-	public void iExecuteJavascriptOnElement(String script, String locator){
+	public static void iExecuteJavascriptOnElement(String script, String locator){
 		ArrayList<String> list = readLocator(locator);		
-		api.toExcuteJavascript(script,list.get(0), list.get(1));
-		log.info("iExecuteJavaScriptOnElement: ");
+		ActionAPI.toExcuteJavascript(script,list.get(0), list.get(1));
 	}
 	
-	public void iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen(){
-		api.toResizeWindown();
-		log.info("iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen: ");
+	public static void iResizeCurrentlySelectedWindowToTakeUpTheEntireScreen(){
+		ActionAPI.toResizeWindown();
 	}
 	
+	public static void switchToWindow(String title) {
+		// TODO Auto-generated method stub
+		ActionAPI.toSwitchWindow(title);
+	}
 }
