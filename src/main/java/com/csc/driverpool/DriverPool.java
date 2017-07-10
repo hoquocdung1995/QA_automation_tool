@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.csc.fixture.SetUpConfiguration;
+
 public class DriverPool {
 	private static WebDriver webDriver;
 	private static  HashMap<String, WebDriver> webDrivers = new HashMap<>();
@@ -17,9 +19,9 @@ public class DriverPool {
 			case "Chrome": 
 				try {
 					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+					webDriver = new RemoteWebDriver(new URL(SetUpConfiguration.configuration.getTestSlaveMachine()), capabilities);
 					System.setProperty("webdriver.gecko.driver",
-							"D:/finalProjectFitnesse/geckodriver.exe");
+							SetUpConfiguration.configuration.getDriverPath() + "geckodriver.exe");
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
@@ -28,9 +30,9 @@ public class DriverPool {
 			case "Firefox":
 				try {
 					DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+					webDriver = new RemoteWebDriver(new URL(SetUpConfiguration.configuration.getTestSlaveMachine()), capabilities);
 					System.setProperty("webdriver.chrome.driver",
-							"D:/finalProjectFitnesse/chromedriver.exe");
+							SetUpConfiguration.configuration.getDriverPath() + "chromedriver.exe");
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();

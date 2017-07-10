@@ -19,14 +19,8 @@ public class SetUpConfiguration {
 		log.info("Set File Config: " + fileName);
 	}
 
-	public void setBrowser(String browser) {
-		configuration.setBrowser(browser);
-		log.info("setBrowser: " + browser);
-	}
-
-	public void setDriver(String driver) {
-		configuration.setDriver(driver);
-		log.info("setDriver: " + driver);
+	public void setDriverPath(String driverPath){
+		configuration.setDriverPath(driverPath);
 	}
 
 	public void setTestSlaveMachine(String machineUrl) {

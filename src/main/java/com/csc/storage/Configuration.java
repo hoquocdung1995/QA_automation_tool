@@ -8,10 +8,13 @@ import java.io.IOException;
 public class Configuration {
 
 	private String fileConfig;
-	private String browser;
-	private String driver;
 	private String testSlaveMachine;
 	private String url;
+	private String driverPath;
+
+	public String getDriverPath() {
+		return driverPath;
+	}
 
 	public String getFileConfig() {
 		return fileConfig;
@@ -21,21 +24,6 @@ public class Configuration {
 		this.fileConfig = fileConfig;
 	}
 
-	public String getBrowser() {
-		return browser;
-	}
-
-	public void setBrowser(String browser) {
-		this.browser = browser;
-	}
-
-	public String getDriver() {
-		return driver;
-	}
-
-	public void setDriver(String driver) {
-		this.driver = driver;
-	}
 
 	public String getTestSlaveMachine() {
 		return testSlaveMachine;
@@ -67,6 +55,11 @@ public class Configuration {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setDriverPath(String driverPath) {
+		// TODO Auto-generated method stub
+		this.driverPath = driverPath;
 	}
 
 }
