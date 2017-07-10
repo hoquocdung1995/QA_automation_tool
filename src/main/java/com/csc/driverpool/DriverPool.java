@@ -1,65 +1,52 @@
 package com.csc.driverpool;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.apache.log4j.Logger;
-import org.openqa.selenium.Platform;
+import java.util.HashMap;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.*;
-
-import com.csc.fixture.InteractWebApplication;
-import com.csc.fixture.SetUpConfiguration;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverPool {
 	private static WebDriver webDriver;
-	private static String driver = SetUpConfiguration.configuration.getDriver();
-	private static String browser = SetUpConfiguration.configuration.getBrowser();
-	private static String testSlaveMachine = SetUpConfiguration.configuration.getTestSlaveMachine();
+	private static  HashMap<String, WebDriver> webDrivers = new HashMap<>();
+	private static WebDriver currentDriver ;
 
-	public static WebDriver createDriverPool() {
-		switch (driver) {
-		case TestConstant.DRIVER_FIREFOX:
-			try {
-				DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-				if (browser.equalsIgnoreCase("firefox"))
-					capabilities.setBrowserName(BrowserType.FIREFOX);
-				capabilities.setPlatform(Platform.WIN10);
-				webDriver = new RemoteWebDriver(new URL(testSlaveMachine), capabilities);
-				System.setProperty("webdriver.gecko.driver","C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/geckodriver.exe");
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			break;
-		case TestConstant.DRIVER_CHROME:
-			try {
-				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-				if (browser.equalsIgnoreCase("chrome"))
-					capabilities.setBrowserName(BrowserType.CHROME);
-				capabilities.setPlatform(Platform.WIN10);
-				webDriver = new RemoteWebDriver(new URL(testSlaveMachine), capabilities);
-				System.setProperty("webdriver.chrome.driver","C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/chromedriver.exe");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			break;
-		default:
-			
-			break;
+	public static void createDriver(String key, String browserType){
+		switch(browserType){
+			case "Chrome": 
+				try {
+					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4445/wd/hub"), capabilities);
+					System.setProperty("webdriver.gecko.driver",
+							"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/geckodriver.exe");
+					webDrivers.put(key, webDriver);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "Firefox":
+				try {
+					DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+					webDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4445/wd/hub"), capabilities);
+					System.setProperty("webdriver.chrome.driver",
+							"C:/Users/training/Desktop/MINHLOC/driverBrowser/chromedriver/chromedriver.exe");
+					webDrivers.put(key, webDriver);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				break;
 		}
-		return webDriver;
 	}
-
-	public static WebDriver getDriverPool(){
-		return webDriver;
+	
+	public static WebDriver getDriver(String key){
+		currentDriver = webDrivers.get(key);
+		return currentDriver;
+	}
+	
+	public static WebDriver getCurrentDriver(){
+		return currentDriver;
 	}
 	
 	
-	public static WebDriver closeDriverPool(){
-		webDriver.close();
-		return webDriver;
-	}
-
 }
