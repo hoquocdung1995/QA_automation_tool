@@ -14,7 +14,6 @@ public class DriverPool {
 	private static WebDriver webDriver;
 	private static  HashMap<String, WebDriver> webDrivers = new HashMap<>();
 	private static WebDriver currentDriver ;
-	private static Actions actions;
 
 	public static void createDriver(String key, String browserType){
 		switch(browserType){
@@ -53,7 +52,7 @@ public class DriverPool {
 	}
 	
 	public static Actions getActionFromCurrentDriver(){
-		return actions = new Actions(currentDriver);
+		return new Actions(currentDriver);
 	}
 	
 	
