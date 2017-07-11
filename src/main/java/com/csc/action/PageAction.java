@@ -110,9 +110,9 @@ public class PageAction {
 	}
 
 	public static void iDragTheElementAndDropToTheElement(String locator1, String locator2) {
-		ArrayList<String> list = readLocator(locator1);
+		ArrayList<String> list1 = readLocator(locator1);
 		ArrayList<String> list2 = readLocator(locator2);
-		ActionAPI.toDragAndDrop(list.get(0), list.get(1), list2.get(0), list2.get(2));
+		ActionAPI.toDragAndDrop(list1.get(0), list1.get(1), list2.get(0), list2.get(1));
 	}
 
 	public static void iMoveTheFocusToTheElement(String locator) {

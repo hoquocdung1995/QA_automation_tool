@@ -49,6 +49,7 @@ public class ActionAPI {
 	
 	public static void setDriverForAction(String key){
 		driver = DriverPool.getDriver(key);
+		actions = DriverPool.getActionFromCurrentDriver();
 	}
 	
 	public static void toSwitchWindow(String title) {
