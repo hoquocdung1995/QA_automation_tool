@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 
 import com.csc.api.ActionAPI;
 import com.csc.driverpool.DriverPool;
@@ -53,34 +54,40 @@ public class PageAction {
 		}
 		return list;
 	}
-
-	public static ArrayList<String> readLocator2(String locator1, String locator2) {
-		ArrayList<String> list = null;
+	
+	public static ArrayList<By> getByFromLocator(String locatorName) {
+		ArrayList<By> list = new ArrayList();
 		Properties prop = new Properties();
 		try {
-			// load a properties file from class path, inside static method
-			String filename = SetUpConfiguration.configuration.getFileConfig();
+			String filename = SetUpConfiguration.configuration.getUrl() + "/"
+					+ SetUpConfiguration.configuration.getFileConfig();
 			prop.load(new FileInputStream(filename));
-			String str = prop.getProperty(locator1);
-			String[] words = str.split("=>");
-			String type = words[0];
-			String val = words[1];
-			String str2 = prop.getProperty(locator2);
-			String[] words2 = str2.split("=>");
-			String type2 = words2[2];
-			String val2 = words2[3];
-			list = new ArrayList<String>();
-			list.add(type);
-			list.add(val);
-			list.add(type2);
-			list.add(val2);
-		}
-
-		catch (IOException ex) {
+			String str = prop.getProperty(locatorName);
+			String[] locators = str.split(";");
+			for (String locator:locators){
+				String[] words = locator.split("=>");
+				String type = words[0];
+				switch (type) {
+				case "xpath":
+					list.add(By.xpath(words[1]));
+					break;
+				case "id":
+					list.add(By.id(words[1]));
+					break;
+				case "name":
+					list.add(By.name(words[1]));
+					break;	
+				default:
+					break;
+				}
+					
+			}
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return list;
 	}
+
 
 	public static void iNavigateToPage(String url) {
 		try {
@@ -92,12 +99,7 @@ public class PageAction {
 	}
 
 	public static void iClickTheElement(String locator) throws InterruptedException {
-		try {
-			ArrayList<String> list = readLocator(locator);
-			ActionAPI.toClick(list.get(0), list.get(1));
-		} catch (Exception e) {
-			exThrowable(e);
-		}
+			ActionAPI.toClick(getByFromLocator(locator));
 	}
 
 	public static void iShouldSeeThePopupAppears(String windowId) {
