@@ -119,8 +119,22 @@ public class ActionAPI {
 	/*
 	 * set Input for element
 	 */
-	public static void toSetInput(String type, String value, String input) {
-		driver.findElement(toDefineElement(type, value)).sendKeys(input);
+	public static void toSetInput(ArrayList<By> locators, String input) {
+		Boolean isActionSuccess = false;
+		int indexOfLocator = 0;
+		while ((!isActionSuccess) && (indexOfLocator < locators.size())) {
+			try {
+				isActionSuccess = true;
+				driver.findElement(locators.get(indexOfLocator)).sendKeys(input);
+			} catch (Exception e) {
+				indexOfLocator++;
+				isActionSuccess = false;
+//				if (indexOfLocator >= locators.size()){
+//					
+//				}
+			}
+		}
+		
 	}
 
 	/*

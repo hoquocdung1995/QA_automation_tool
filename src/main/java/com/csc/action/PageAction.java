@@ -199,8 +199,7 @@ public class PageAction {
 
 	public static void iSetTheInputWithValue(String locator, String value) {
 		try {
-			ArrayList<String> list = readLocator(locator);
-			ActionAPI.toSetInput(list.get(0), list.get(1), value);
+			ActionAPI.toSetInput(getByFromLocator(locator), value);
 		} catch (Exception e) {
 			exThrowable(e);
 		}
