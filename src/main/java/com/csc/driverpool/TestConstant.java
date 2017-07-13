@@ -6,9 +6,13 @@ public class TestConstant {
 	
 	public static final String CHROME = "chrome";
 	
-	public static final String DRIVER_FIREFOX = "1";
+	public static final String DRIVER_FIREFOX = "webdriver.gecko.driver";
 	
-	public static final String DRIVER_CHROME = "2";
+	public static final String DRIVER_CHROME = "webdriver.chrome.driver";
+	
+	public static final String DRIVER_FIREFOX_FILE = "geckodriver.exe";
+	
+	public static final String DRIVER_CHROME_FILE = "chromedriver.exe";
 	
 	public static final String ID = "id";
 	
