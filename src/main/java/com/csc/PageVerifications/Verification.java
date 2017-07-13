@@ -105,19 +105,31 @@ public class Verification {
 		return getWebGrid(list);
 	}
 	
+	/**
+	 * Read grid table then save all cells' value of grid table into the list 
+	 * @author Vo Duong Quang
+	 * @param element of grid table
+	 * @return list 
+	 */
 	private static List<List<String>> readWebGrid(WebElement element){
+		//find tagName element of table
 		WebElement webElement = element.findElement(By.tagName("tbody"));
-		List<WebElement> tr_collection = webElement.findElements(By.tagName("tr"));
-
-		List<List<String>> list = new ArrayList<List<String>>();
-		List<String> rowList = null;
-		for (WebElement trElement : tr_collection) {
-			List<WebElement> td_collection = trElement.findElements(By.xpath("*"));
-			rowList = new ArrayList<>();
-			for (WebElement tdElement : td_collection) {
+		//find tagName element of row 
+		List<WebElement> trList = webElement.findElements(By.tagName("tr"));
+		//List to save all cells' value each row of the table 
+		List<String> rowList=null;
+		//list to save all rows' value of the table
+		List<List<String>> list=new ArrayList<>();
+		//add all cells' value of table into the list
+		for(WebElement trElement:trList) {
+			List<WebElement> tdList = trElement.findElements(By.xpath("*"));
+			rowList=new ArrayList<>();
+			for(WebElement tdElement:tdList) {
+				//add cells' value into rowList
 				rowList.add(tdElement.getText());
 			}
 			list.add(rowList);
+			
 		}
 		return list;
 	}
