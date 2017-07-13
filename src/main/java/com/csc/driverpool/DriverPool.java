@@ -15,24 +15,24 @@ public class DriverPool {
 	private static WebDriver currentDriver ;
 
 	public static void createDriver(String key, String browserType){
-		switch(browserType){
-			case "Chrome": 
+		switch(browserType){	
+			case "Firefox": 
 				try {
-					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+					DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 					webDriver = new RemoteWebDriver(new URL(SetUpConfiguration.configuration.getTestSlaveMachine()), capabilities);
-					System.setProperty("webdriver.gecko.driver",
-							SetUpConfiguration.configuration.getDriverPath() + "geckodriver.exe");
+					System.setProperty(TestConstant.DRIVER_FIREFOX,
+							SetUpConfiguration.configuration.getDriverPath() + TestConstant.DRIVER_FIREFOX_FILE);
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				}
-				break;
-			case "Firefox":
+				break;	
+			case "Chrome":
 				try {
-					DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+					DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 					webDriver = new RemoteWebDriver(new URL(SetUpConfiguration.configuration.getTestSlaveMachine()), capabilities);
-					System.setProperty("webdriver.chrome.driver",
-							SetUpConfiguration.configuration.getDriverPath() + "chromedriver.exe");
+					System.setProperty(TestConstant.DRIVER_CHROME,
+							SetUpConfiguration.configuration.getDriverPath() + TestConstant.DRIVER_CHROME_FILE);
 					webDrivers.put(key, webDriver);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
