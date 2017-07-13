@@ -7,8 +7,6 @@ import com.csc.logging.Log4jMachine;
 
 public class InteractWebApplication {
 
-	private static org.apache.log4j.Logger log = Logger.getLogger(InteractWebApplication.class);
-
 	public InteractWebApplication() {
 	}
 
