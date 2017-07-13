@@ -3,7 +3,7 @@ package com.csc.fixture;
 import org.apache.log4j.Logger;
 
 import com.csc.action.PageAction;
-import com.csc.storage.Logging;
+import com.csc.storage.Log4jMachine;
 
 public class InteractWebApplication {
 
@@ -17,7 +17,7 @@ public class InteractWebApplication {
 	}
 
 	public void iSwitchToWindowWithTitleContain(String title) {
-		Logging.info("i switch window");
+		//Log4jMachine.info("i switch window");
 		PageAction.switchToWindow(title);
 	}
 

@@ -1,6 +1,8 @@
 package com.csc.exception;
 
+import com.csc.storage.Log4jMachine;
 import com.csc.storage.Screenshot;
+import com.csc.storage.SystemLogging;
 /**
  * Fixture Exception
  * @author Vo Duong Quang
@@ -9,9 +11,13 @@ import com.csc.storage.Screenshot;
 public class FixtureException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
+	
+	public static Log4jMachine log4j = new Log4jMachine();
 
 	public FixtureException(Throwable e) {
 		super(createMessage(), e);
+		SystemLogging.registerLoggingObserver(log4j);
+		SystemLogging.error(e.getMessage());
 	}
 	/**
 	 * @return URl image screenshot
