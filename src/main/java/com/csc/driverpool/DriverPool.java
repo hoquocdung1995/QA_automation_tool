@@ -55,5 +55,8 @@ public class DriverPool {
 		return new Actions(currentDriver);
 	}
 	
+	public static void killDriverInstance(String key) {
+		webDrivers.get(key).quit();
+	}	
 	
 }
