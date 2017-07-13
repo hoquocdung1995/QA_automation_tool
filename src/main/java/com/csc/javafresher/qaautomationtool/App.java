@@ -2,8 +2,8 @@ package com.csc.javafresher.qaautomationtool;
 
 
 import com.csc.fixture.InteractWebApplication;
-import com.csc.storage.Log4jMachine;
-import com.csc.storage.SystemLogging;
+import com.csc.logging.Log4jMachine;
+import com.csc.logging.SystemLogging;
 import com.csc.fixture.SetUpConfiguration;
 
 

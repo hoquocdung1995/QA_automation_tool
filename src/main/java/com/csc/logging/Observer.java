@@ -1,11 +1,12 @@
-package com.csc.storage;
+package com.csc.logging;
 
 /**
  * 
  * @author Nguyen Huu Phuoc
- *
+ * Abstract class observe and notifies any changes
  */
 public abstract class Observer {
+	//Object manage and notify 
 	protected SystemLogging systemLogging;
 
 	public abstract void executeLoggingInfo(String message);

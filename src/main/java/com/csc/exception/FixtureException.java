@@ -1,8 +1,8 @@
 package com.csc.exception;
 
-import com.csc.storage.Log4jMachine;
+import com.csc.logging.Log4jMachine;
+import com.csc.logging.SystemLogging;
 import com.csc.storage.Screenshot;
-import com.csc.storage.SystemLogging;
 /**
  * Fixture Exception
  * @author Vo Duong Quang

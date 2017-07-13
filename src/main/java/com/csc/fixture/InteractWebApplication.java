@@ -3,7 +3,7 @@ package com.csc.fixture;
 import org.apache.log4j.Logger;
 
 import com.csc.action.PageAction;
-import com.csc.storage.Log4jMachine;
+import com.csc.logging.Log4jMachine;
 
 public class InteractWebApplication {
 

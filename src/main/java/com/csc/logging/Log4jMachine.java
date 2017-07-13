@@ -1,11 +1,11 @@
-package com.csc.storage;
+package com.csc.logging;
 
 import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Nguyen Huu Phuoc
- *
+ * log4j object of observer
  */
 public class Log4jMachine extends Observer {
 	private static org.apache.log4j.Logger log = Logger.getLogger(Log4jMachine.class);
