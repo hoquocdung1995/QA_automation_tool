@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 import com.csc.driverpool.TestConstant;
+import com.csc.exception.FixtureException;
 
 public class ActionAPI {
 
@@ -108,9 +109,9 @@ public class ActionAPI {
 			} catch (Exception e) {
 				indexOfLocator++;
 				isActionSuccess = false;
-//				if (indexOfLocator >= locators.size()){
-//					
-//				}
+				if (indexOfLocator >= locators.size()){
+					exThrowable(e);
+				}
 			}
 		}
 
@@ -129,9 +130,9 @@ public class ActionAPI {
 			} catch (Exception e) {
 				indexOfLocator++;
 				isActionSuccess = false;
-//				if (indexOfLocator >= locators.size()){
-//					
-//				}
+				if (indexOfLocator >= locators.size()){
+					exThrowable(e);
+				}
 			}
 		}
 		
@@ -326,5 +327,12 @@ public class ActionAPI {
 	public static void toOpenPopUpWithUrl(String url, String windowId) {
 
 	}
-
+	/**
+	 * use exception fitnesse
+	 * 
+	 * @param exception
+	 */
+	public static void exThrowable(Exception e) {
+		throw new FixtureException(e);
+	}
 }
