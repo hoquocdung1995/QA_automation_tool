@@ -10,13 +10,19 @@ import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 
 /**
- * 
+ * class verification is web verification
  * @author Bui Duc Anh
- *
+ * @since 12/7/2017
  */
 
 public class Verification {
 
+	
+	/**
+	 * verifiElementText is method get the value in element.
+	 * @param locator is get from read file properties
+	 * @return elementText is value of attribute
+	 */
 	public static String verifyElementText(String locator) {
 		WebDriver driver = DriverPool.getCurrentDriver();
 		List<String> loca = PageAction.readLocator(locator);
@@ -38,6 +44,11 @@ public class Verification {
 		return elementText;
 
 	}
+	/**
+	 * verifyDropDownList is get all element value in DropDownList.
+	 * @param locator is get from read file properties
+	 * @return elementText is value of attribute
+	 */
 
 	public static String verifyDropDownList(String locator) {
 		WebDriver driver = DriverPool.getCurrentDriver();
