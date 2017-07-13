@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -48,6 +49,10 @@ public class DriverPool {
 	
 	public static WebDriver getCurrentDriver(){
 		return currentDriver;
+	}
+	
+	public static Actions getActionFromCurrentDriver(){
+		return new Actions(currentDriver);
 	}
 	
 	

@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.csc.action.PageAction;
 import com.csc.driverpool.DriverPool;
 import com.csc.driverpool.TestConstant;
+import com.csc.exception.FixtureException;
 
 public class ActionAPI {
 
@@ -46,23 +47,23 @@ public class ActionAPI {
 		}
 		return by;
 	}
-	
-	public static void setDriverForAction(String key){
+
+	public static void setDriverForAction(String key) {
 		driver = DriverPool.getDriver(key);
+		actions = DriverPool.getActionFromCurrentDriver();
 	}
-	
+
 	public static void toSwitchWindow(String title) {
 		Set<String> windows = driver.getWindowHandles();
-		String mainwindow=driver.getWindowHandle();
-		for (String s:windows){
+		String mainwindow = driver.getWindowHandle();
+		for (String s : windows) {
 			driver.switchTo().window(s);
-			if (driver.getTitle().contains(title)){
+			if (driver.getTitle().contains(title)) {
 				return;
 			}
 		}
 		driver.switchTo().window(mainwindow);
 	}
-
 
 	/*
 	 * Verify WebElement
@@ -98,15 +99,43 @@ public class ActionAPI {
 	/*
 	 * Click
 	 */
-	public static void toClick(String type, String value) throws InterruptedException {
-		driver.findElement(toDefineElement(type, value)).click();
+	public static void toClick(ArrayList<By> locators) throws InterruptedException {
+		Boolean isActionSuccess = false;
+		int indexOfLocator = 0;
+		while ((!isActionSuccess) && (indexOfLocator < locators.size())) {
+			try {
+				isActionSuccess = true;
+				driver.findElement(locators.get(indexOfLocator)).click();
+			} catch (Exception e) {
+				indexOfLocator++;
+				isActionSuccess = false;
+				if (indexOfLocator >= locators.size()){
+					exThrowable(e);
+				}
+			}
+		}
+
 	}
 
 	/*
 	 * set Input for element
 	 */
-	public static void toSetInput(String type, String value, String input) {
-		driver.findElement(toDefineElement(type, value)).sendKeys(input);
+	public static void toSetInput(ArrayList<By> locators, String input) {
+		Boolean isActionSuccess = false;
+		int indexOfLocator = 0;
+		while ((!isActionSuccess) && (indexOfLocator < locators.size())) {
+			try {
+				isActionSuccess = true;
+				driver.findElement(locators.get(indexOfLocator)).sendKeys(input);
+			} catch (Exception e) {
+				indexOfLocator++;
+				isActionSuccess = false;
+				if (indexOfLocator >= locators.size()){
+					exThrowable(e);
+				}
+			}
+		}
+		
 	}
 
 	/*
@@ -238,7 +267,6 @@ public class ActionAPI {
 	/*
 	 * Open Firefox and handle here
 	 */
-	
 
 	/*
 	 * Press_Left_Mouse
@@ -247,14 +275,13 @@ public class ActionAPI {
 		actions.clickAndHold(driver.findElement(toDefineElement(type, value))).perform();
 	}
 
-	
 	/*
 	 * Release_Mouse
 	 */
 	public static void toReleaseMouse(String type, String value) {
 		actions.moveToElement(driver.findElement(toDefineElement(type, value))).release().perform();
 	}
-	
+
 	/*
 	 * Resize Window
 	 */
@@ -262,12 +289,14 @@ public class ActionAPI {
 		Dimension dimension = new Dimension(800, 600);
 		driver.manage().window().setSize(dimension);
 	}
+
 	/*
 	 * Maximize Window
 	 */
 	public static void toMaximizeWindow() {
 		driver.manage().window().maximize();
 	}
+
 	/*
 	 * Minimize Window
 	 */
@@ -281,15 +310,16 @@ public class ActionAPI {
 	public static void toGiveFocusToCurrentWindow() {
 		actions.release();
 	}
+
 	/*
-	 * Move 
+	 * Move
 	 */
 	public static void toMoveTheFocusToElement(String type, String value) {
-		element = driver.findElement(toDefineElement(type, value));  
-		Point location = element.getLocation();  
+		element = driver.findElement(toDefineElement(type, value));
+		Point location = element.getLocation();
 		actions.moveToElement(element, location.x, location.y).click().perform();
 	}
-	
+
 	public static void toShowPopUp(String windowId) {
 
 	}
@@ -297,6 +327,12 @@ public class ActionAPI {
 	public static void toOpenPopUpWithUrl(String url, String windowId) {
 
 	}
-	
-
+	/**
+	 * use exception fitnesse
+	 * 
+	 * @param exception
+	 */
+	public static void exThrowable(Exception e) {
+		throw new FixtureException(e);
+	}
 }
