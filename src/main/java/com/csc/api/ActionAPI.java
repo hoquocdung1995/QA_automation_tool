@@ -215,8 +215,14 @@ public class ActionAPI {
 	 * Get Element text (by element attribute)
 	 */
 	public static String toGetElementText(String type, String value) {
-		element = driver.findElement(toDefineElement(type, value));
-		return element.getAttribute("value");
+		String textElement = null;
+		try {
+			textElement = driver.findElement(toDefineElement(type, value)).getText();			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return textElement;
 	}
 
 	/*
@@ -245,12 +251,16 @@ public class ActionAPI {
 	/*
 	 * Get_Web_Grid
 	 */
-	public static ArrayList<WebElement> toGetWebGrid(String value) {
-		element = driver.findElement(By.xpath(value));
-		ArrayList<WebElement> allCell = null;
-		ArrayList<WebElement> rows = (ArrayList<WebElement>) element.findElements(By.tagName("tr"));
+	public static List<WebElement> toGetWebGrid(String type, String value) {
+		element = driver.findElement(toDefineElement(type, value));
+		List<WebElement> allCell = new ArrayList<WebElement>();
+		List<WebElement> allRow = null;
+		List<WebElement> rows = (List<WebElement>) element.findElements(By.tagName("tr"));
 		for (WebElement row : rows) {
-			allCell = (ArrayList<WebElement>) row.findElements(By.tagName("//td"));
+			allRow =row.findElements(By.tagName("td"));
+			for (WebElement e : allRow){
+				allCell.add(e);
+			}
 		}
 		return allCell;
 	}
